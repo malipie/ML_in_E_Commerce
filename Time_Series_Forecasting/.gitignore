@@ -1,0 +1,44 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Data (large files, not versioned in git)
+Data/
+
+# Agent / IDE metadata
+.agent/
+.claude/
+
+# Environment secrets
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+
+# MLflow local artifacts
+notebooks/mlflow.db
+notebooks/mlruns/
+mlruns/
+
+# Generated / large files
+forecast_dashboard.html
+
+# Models (binary, tracked separately)
+models/*.pkl
+
+# Coverage
+.coverage
+coverage.xml

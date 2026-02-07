@@ -1,0 +1,10 @@
+# Projekty w trakcie / nie gotowe do publikacji
+Clustering/
+NLP_Feature_Extraction_and_Product_Categorization/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data
+Data/

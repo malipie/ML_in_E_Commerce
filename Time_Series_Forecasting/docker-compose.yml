@@ -1,0 +1,84 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./Data:/app/Data
+    env_file:
+      - .env
+    environment:
+      - TSF_MLFLOW_TRACKING_URI=http://mlflow:5000
+      - TSF_DATA_DIR=/app/Data
+      - TSF_MODELS_DIR=/app/models
+    depends_on:
+      - mlflow
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  mlflow:
+    image: python:3.10-slim
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/app/mlruns
+    command: >
+      sh -c "
+        pip install mlflow &&
+        mlflow server --host 0.0.0.0 --port 5000
+        --backend-store-uri sqlite:///app/mlruns/mlflow.db
+        --default-artifact-root /app/mlruns/artifacts
+      "
+    restart: unless-stopped
+
+  scheduler:
+    build: .
+    command: ["python", "-m", "src.monitoring.scheduler"]
+    volumes:
+      - ./models:/app/models
+      - ./Data:/app/Data
+    env_file:
+      - .env
+    environment:
+      - TSF_MLFLOW_TRACKING_URI=http://mlflow:5000
+      - TSF_RETRAINING_SCHEDULE_HOURS=168
+    depends_on:
+      - mlflow
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    env_file:
+      - .env
+    environment:
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/forecast_api.json
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  mlflow_data:
+  prometheus_data:
+  grafana_data:
