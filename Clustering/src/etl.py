@@ -7,7 +7,6 @@ and persists the result as Parquet.
 
 from __future__ import annotations
 
-import glob
 import hashlib
 import logging
 from pathlib import Path

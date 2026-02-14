@@ -10,10 +10,7 @@ and cluster counts.
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
-from typing import Any
-
-import numpy as np
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 

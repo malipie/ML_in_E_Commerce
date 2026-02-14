@@ -3,7 +3,6 @@
 import numpy as np
 import pandas as pd
 import pytest
-
 from src.monitoring.drift_detector import DriftDetector, calculate_psi
 
 

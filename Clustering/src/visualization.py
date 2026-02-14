@@ -9,7 +9,6 @@ objects that can be displayed with ``fig.show()`` or embedded via
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -325,7 +324,7 @@ def plot_feature_boxplots(
         Plotly Figure.
     """
     plot_df = df[[feature]].copy()
-    plot_df["segment"] = [label_map.get(l, f"Cluster {l}") for l in labels]
+    plot_df["segment"] = [label_map.get(lbl, f"Cluster {lbl}") for lbl in labels]
 
     fig = px.box(
         plot_df,
