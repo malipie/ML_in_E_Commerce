@@ -9,7 +9,7 @@ __pycache__/
 *.egg-info/
 
 # Data (large files, not versioned in git)
-Data/
+/Data/
 
 # Agent / IDE metadata
 .agent/
