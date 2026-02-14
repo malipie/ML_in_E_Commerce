@@ -1,10 +1,16 @@
-name: CI
+name: CI — Time Series Forecasting
 
 on:
   push:
     branches: [main]
+    paths: ["Time_Series_Forecasting/**"]
   pull_request:
     branches: [main]
+    paths: ["Time_Series_Forecasting/**"]
+
+defaults:
+  run:
+    working-directory: Time_Series_Forecasting
 
 jobs:
   lint-and-test:
@@ -18,6 +24,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: "pip"
+          cache-dependency-path: Time_Series_Forecasting/requirements.txt
 
       - name: Install dependencies
         run: |
@@ -34,11 +41,3 @@ jobs:
       - name: Security audit dependencies
         run: pip-audit --strict
         continue-on-error: true
-
-      - name: Upload coverage report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: htmlcov/
-          retention-days: 7

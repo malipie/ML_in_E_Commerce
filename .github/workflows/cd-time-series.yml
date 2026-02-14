@@ -1,10 +1,14 @@
-name: CD
+name: CD — Time Series Forecasting
 
 on:
   push:
     tags:
       - "v*"
   workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: Time_Series_Forecasting
 
 jobs:
   build-and-push:
@@ -29,7 +33,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: Time_Series_Forecasting
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/ts-forecasting:${{ steps.version.outputs.VERSION }}
