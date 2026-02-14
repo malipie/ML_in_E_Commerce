@@ -1,0 +1,44 @@
+# Customer Segmentation Engine — Configuration
+
+data:
+  raw_dir: "../Data"
+  processed_dir: "data/processed"
+  xml_glob: "*.xml"
+  output_parquet: "data/processed/orders_features.parquet"
+
+features:
+  numerical:
+    - order_amount_brutto
+    - n_items
+    - avg_item_price
+    - max_item_price
+  cyclical:
+    - hour_of_day
+    - day_of_week
+  categorical:
+    - delivery_type
+    - payment_name
+  log_transform:
+    - order_amount_brutto
+    - avg_item_price
+    - max_item_price
+
+clustering:
+  kmeans:
+    k_range: [2, 10]
+    n_init: 10
+    random_state: 42
+  dbscan:
+    eps: 0.5
+    min_samples: 5
+
+dimensionality:
+  pca:
+    n_components: 3
+  tsne:
+    n_components: 2
+    perplexity: 30
+    random_state: 42
+
+models:
+  output_dir: "models"

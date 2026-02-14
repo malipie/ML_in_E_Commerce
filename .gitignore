@@ -1,6 +1,18 @@
 # Projekty w trakcie / nie gotowe do publikacji
-Clustering/
 NLP_Feature_Extraction_and_Product_Categorization/
+
+# Secrets
+.env*
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE / AI agent
+.vscode/
+.idea/
+.agent/
+.claude/
 
 # OS
 .DS_Store

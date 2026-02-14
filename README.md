@@ -32,9 +32,33 @@ Champion model achieves **79% MAE improvement** over the best baseline.
 
 **Tech stack:** Python, XGBoost, Prophet, statsmodels, FastAPI, MLflow, Optuna, Evidently, Docker, Prometheus, Grafana, GitHub Actions
 
-### 2. Clustering — Planned
+### 2. [Customer Segmentation Engine](Clustering/) — Completed
 
-Customer segmentation using clustering techniques on e-commerce transaction data.
+Transaction-level clustering pipeline with automated segment labeling and interactive Streamlit dashboard.
+
+**Pipeline:** XML parsing → feature engineering → K-Means / DBSCAN → segment labeling → dashboard
+
+**Key results:**
+
+| Feature Set | Features | Best k | Silhouette |
+|-------------|----------|--------|------------|
+| Numerical only | 4 | auto | highest |
+| Numerical + Cyclical | 8 | auto | high |
+| Reduced cardinality | ~25 | auto | moderate |
+| Baseline (full one-hot) | 126 | auto | lowest |
+
+Fewer, well-chosen features produce cleaner segments than the full 126-dim one-hot space. Pipeline auto-labels **7 business segments** (Premium, High-Value, Budget, Standard, etc.).
+
+**Highlights:**
+- K-Means (elbow + silhouette analysis) and DBSCAN (noise detection)
+- Rank-based auto-labeling of 7 business segment types
+- Streamlit dashboard with real-time parameter tuning and 3D PCA visualization
+- FeaturePipeline: log1p, sin/cos cyclical, one-hot, StandardScaler
+- EDA + modeling experiment notebooks with executed outputs
+- CI/CD via GitHub Actions (ruff + pytest + pip-audit)
+- 151 pytest tests, 79% coverage
+
+**Tech stack:** Python, scikit-learn, Pandas, NumPy, Plotly, Streamlit, lxml, PyArrow, GitHub Actions
 
 ### 3. NLP Feature Extraction & Product Categorization — Planned
 
@@ -45,7 +69,7 @@ NLP-driven feature extraction from product descriptions and automated product ca
 ```
 ML_in_E_Commerce/
 ├── Time_Series_Forecasting/   # Project 1 (completed)
-├── Clustering/                # Project 2 (planned)
+├── Clustering/                # Project 2 (completed)
 ├── NLP_Feature_Extraction_and_Product_Categorization/  # Project 3 (planned)
 ├── Data/                      # Shared e-commerce datasets (not tracked)
 └── README.md
