@@ -1,0 +1,114 @@
+# NLP Feature Extraction & Product Categorization — Configuration
+
+data:
+  raw_dir: "../Data"
+  processed_dir: "data/processed"
+  xml_glob: "*.xml"
+  items_parquet: "data/processed/items.parquet"
+  features_parquet: "data/processed/items_features.parquet"
+  categorized_parquet: "data/processed/items_categorized.parquet"
+
+nlp:
+  language: "pl"
+  min_token_length: 2
+  use_lemma: false
+
+extraction:
+  colors:
+    czarny: ["CZARNY", "CZARNE", "CZARNA", "CZARNYM", "BLACK"]
+    bialy: ["BIAŁY", "BIAŁE", "BIAŁA", "WHITE"]
+    brazowy: ["BRĄZOWY", "BRĄZOWE", "BRĄZOWA", "BROWN"]
+    szary: ["SZARY", "SZARE", "SZARA", "GREY", "GRAY"]
+    bezowy: ["BEŻOWY", "BEŻOWE", "BEŻOWA", "BEIGE"]
+    taupe: ["TAUPE"]
+    kamelowy: ["KAMELOWY", "KAMELOWE", "KAMELOWA", "CAMEL", "KAMEL"]
+    srebrny: ["SREBRNY", "SREBRNE", "SREBRNA", "SILVER"]
+    zloty: ["ZŁOTY", "ZŁOTE", "ZŁOTA", "GOLD"]
+    czerwony: ["CZERWONY", "CZERWONE", "CZERWONA", "RED"]
+    rozowy: ["RÓŻOWY", "RÓŻOWE", "RÓŻOWA", "PINK"]
+    niebieski: ["NIEBIESKI", "NIEBIESKIE", "NIEBIESKA", "BLUE", "NAVY"]
+    zielony: ["ZIELONY", "ZIELONE", "ZIELONA", "GREEN", "KHAKI", "OLIWKOWY", "OLIWKOWE"]
+    burgundowy: ["BURGUNDOWY", "BURGUNDOWE", "BURGUNDOWA", "BORDO", "BORDOWY", "BORDOWE"]
+    granatowy: ["GRANATOWY", "GRANATOWE", "GRANATOWA"]
+    fioletowy: ["FIOLETOWY", "FIOLETOWE", "FIOLETOWA", "PURPLE"]
+    kremowy: ["KREMOWY", "KREMOWE", "KREMOWA", "ECRU"]
+    miedziany: ["MIEDZIANY", "MIEDZIANE", "MIEDZIANA"]
+    nude: ["NUDE"]
+    rudy: ["RUDY", "RUDE", "RUDA"]
+    jasny: ["JASNY", "JASNE", "JASNA"]
+    ciemny: ["CIEMNY", "CIEMNE", "CIEMNA"]
+
+  materials:
+    skorzany: ["SKÓRZANE", "SKÓRZANY", "SKÓRZANA", "SKÓRA", "LICO", "LICOWE"]
+    zamszowy: ["ZAMSZOWE", "ZAMSZOWY", "ZAMSZOWA", "ZAMSZ"]
+    nubukowy: ["NUBUKOWE", "NUBUKOWY", "NUBUKOWA", "NUBUK", "NUB"]
+    lakierowany: ["LAKIEROWANE", "LAKIEROWANY", "LAKIEROWANA", "LAKIER"]
+    ekoskora: ["EKOSKÓRA", "EKO SKÓRA", "EKO"]
+    tekstylny: ["TEKSTYLNE", "TEKSTYLNY", "TEKSTYLNA"]
+    welurowy: ["WELUROWE", "WELUROWY", "WELUROWA", "WELUR", "WEL"]
+    wezowy: ["WĘŻOWE", "WĘŻOWY", "WĘŻOWA", "WAŻ", "WAZ"]
+
+  product_types:
+    botki: ["BOTKI", "BOTEK"]
+    kowbojki: ["KOWBOJKI"]
+    kozaki: ["KOZAKI", "KOZAK"]
+    szpilki: ["SZPILKI"]
+    trampki: ["TRAMPKI"]
+    tenisowki: ["TENISÓWKI"]
+    sneakersy: ["SNEAKERSY", "SNEAKERS"]
+    glany: ["GLANY"]
+    trapery: ["TRAPERY"]
+    workery: ["WORKERY"]
+    sandaly: ["SANDAŁY", "SANDAŁ"]
+    klapki: ["KLAPKI"]
+    portfel: ["PORTFEL"]
+    portmonetka: ["PORTMONETKA"]
+    torebka: ["TOREBKA"]
+    listonoszka: ["LISTONOSZKA"]
+    polbuty: ["PÓŁBUTY"]
+    mokasyny: ["MOKASYNY"]
+    baleriny: ["BALERINY", "BALERINKI"]
+    espadryle: ["ESPADRYLE"]
+    lordsy: ["LORDSY"]
+    platformy: ["PLATFORMY"]
+    koturny: ["KOTURNY"]
+
+  season_indicators:
+    warm: ["CIEPŁE", "CIEPŁY", "OCIEPLANE", "OCIEPLANY", "ZIMOWE", "ZIMOWY", "FUTRO", "FUTERKO", "KOŻUCH"]
+    cold: ["LETNIE", "LETNI", "AŻUROWE", "AŻUROWY", "PRZEWIEWNE"]
+
+  brand_sku_prefixes:
+    OPT: "Optimo"
+    MON: "Monnari"
+    SL: "Sergio Leone"
+    WOL: "Wolanki"
+    BD: "Butdam"
+    SEM: "Semler"
+    bota: "Art"
+    btn: "Art"
+    SNK: "Art"
+    TELA: "Art"
+
+classification:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  min_class_size: 10
+  tfidf:
+    max_features: 500
+    ngram_range: [1, 2]
+    min_df: 2
+  models:
+    svm:
+      kernel: "linear"
+      C: 1.0
+    random_forest:
+      n_estimators: 100
+      random_state: 42
+    xgboost:
+      n_estimators: 100
+      max_depth: 6
+      random_state: 42
+
+models:
+  output_dir: "models"

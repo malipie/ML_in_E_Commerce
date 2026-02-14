@@ -60,9 +60,39 @@ Fewer, well-chosen features produce cleaner segments than the full 126-dim one-h
 
 **Tech stack:** Python, scikit-learn, Pandas, NumPy, Plotly, Streamlit, lxml, PyArrow, GitHub Actions
 
-### 3. NLP Feature Extraction & Product Categorization — Planned
+### 3. [NLP Feature Extraction & Product Categorization](NLP_Feature_Extraction_and_Product_Categorization/) — Completed
 
-NLP-driven feature extraction from product descriptions and automated product categorization.
+Rule-based + ML hybrid pipeline for extracting structured attributes from Polish e-commerce product names and automated product categorization.
+
+**Pipeline:** XML parsing → text preprocessing → rule-based extraction → TF-IDF features → ML categorization → enriched Parquet + model
+
+**Key results:**
+
+| Feature | Coverage |
+|---------|----------|
+| Product type | 84.2% |
+| Brand | 78.8% |
+| Size | 73.4% |
+| Color | 55.4% |
+| Material | 46.0% |
+| Season | 8.7% |
+
+| Model | CV F1-macro | Accuracy |
+|-------|-------------|----------|
+| **LinearSVC** | **1.000** | **1.000** |
+| Random Forest | 0.999 | 1.000 |
+| XGBoost | 0.997 | 1.000 |
+
+**Highlights:**
+- Rule-based extraction of 6 product attributes from Polish text (color, material, size, type, brand, season)
+- TF-IDF + classifier pipelines (LinearSVC, Random Forest, XGBoost) for product categorization
+- 20 product type categories classified with perfect CV F1
+- Champion model predicts categories for unlabeled items
+- EDA + modeling experiment notebooks with Plotly visualizations
+- CI/CD via GitHub Actions (ruff + pytest + pip-audit)
+- 176 pytest tests, 94% coverage
+
+**Tech stack:** Python, spaCy, scikit-learn, XGBoost, Pandas, lxml, Plotly, Matplotlib, WordCloud, GitHub Actions
 
 ## Repository Structure
 
@@ -70,7 +100,7 @@ NLP-driven feature extraction from product descriptions and automated product ca
 ML_in_E_Commerce/
 ├── Time_Series_Forecasting/   # Project 1 (completed)
 ├── Clustering/                # Project 2 (completed)
-├── NLP_Feature_Extraction_and_Product_Categorization/  # Project 3 (planned)
+├── NLP_Feature_Extraction_and_Product_Categorization/  # Project 3 (completed)
 ├── Data/                      # Shared e-commerce datasets (not tracked)
 └── README.md
 ```

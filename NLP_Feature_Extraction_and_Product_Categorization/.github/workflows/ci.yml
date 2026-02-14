@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths: ["NLP_Feature_Extraction_and_Product_Categorization/**"]
+  pull_request:
+    branches: [main]
+    paths: ["NLP_Feature_Extraction_and_Product_Categorization/**"]
+
+defaults:
+  run:
+    working-directory: NLP_Feature_Extraction_and_Product_Categorization
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: NLP_Feature_Extraction_and_Product_Categorization/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff pip-audit
+          python -m spacy download pl_core_news_sm
+
+      - name: Lint with ruff
+        run: ruff check src/ tests/
+
+      - name: Run tests with coverage
+        run: pytest tests/ -v --cov=src --cov-report=term-missing --cov-fail-under=60
+
+      - name: Security audit dependencies
+        run: pip-audit --strict
+        continue-on-error: true
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: NLP_Feature_Extraction_and_Product_Categorization/htmlcov/
+          retention-days: 7
