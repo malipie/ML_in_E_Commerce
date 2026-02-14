@@ -3,10 +3,10 @@ name: CI — Time Series Forecasting
 on:
   push:
     branches: [main]
-    paths: ["Time_Series_Forecasting/**"]
+    paths: ["Time_Series_Forecasting/**", ".github/workflows/ci-time-series.yml"]
   pull_request:
     branches: [main]
-    paths: ["Time_Series_Forecasting/**"]
+    paths: ["Time_Series_Forecasting/**", ".github/workflows/ci-time-series.yml"]
 
 defaults:
   run:

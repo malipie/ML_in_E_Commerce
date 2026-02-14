@@ -3,10 +3,10 @@ name: CI — Clustering
 on:
   push:
     branches: [main]
-    paths: ["Clustering/**"]
+    paths: ["Clustering/**", ".github/workflows/ci-clustering.yml"]
   pull_request:
     branches: [main]
-    paths: ["Clustering/**"]
+    paths: ["Clustering/**", ".github/workflows/ci-clustering.yml"]
 
 defaults:
   run:

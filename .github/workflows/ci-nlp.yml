@@ -3,10 +3,10 @@ name: CI — NLP Feature Extraction
 on:
   push:
     branches: [main]
-    paths: ["NLP_Feature_Extraction_and_Product_Categorization/**"]
+    paths: ["NLP_Feature_Extraction_and_Product_Categorization/**", ".github/workflows/ci-nlp.yml"]
   pull_request:
     branches: [main]
-    paths: ["NLP_Feature_Extraction_and_Product_Categorization/**"]
+    paths: ["NLP_Feature_Extraction_and_Product_Categorization/**", ".github/workflows/ci-nlp.yml"]
 
 defaults:
   run:
