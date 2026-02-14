@@ -49,6 +49,9 @@ line-length = 120
 select = ["E", "F", "W", "I", "N", "UP", "S", "B"]
 ignore = ["S101", "S104", "S105", "S110", "S301", "S314", "S603", "S607", "E501", "N803", "N806"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
